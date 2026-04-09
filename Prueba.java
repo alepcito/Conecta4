@@ -1,7 +1,10 @@
 import java.util.Scanner;
 
 public class Prueba {
-    public static void main(String[]args){
+        //El main comentado es para que juegue una persona vs IA.
+        //El main que se ejecuta es para hacer pruebas IA vs IA.
+
+    /*public static void main(String[]args){
         Scanner sc=new Scanner(System.in);
         Conecta4 a=new Conecta4();
         char jugador='X';
@@ -44,5 +47,62 @@ public class Prueba {
         a.imprimirTablero();
         System.out.println("Empate!");
         sc.close();
+    } */
+    public static void main(String[] args){
+
+        int partidas=20; //# de simulaciones
+
+        int ganaIA1=0;
+        int ganaIA2=0;
+        int empates=0;
+
+        for(int p=0;p<partidas;p++){
+
+            Conecta4 a=new Conecta4();
+            a.inicializa();
+
+                //se pueden variar niveles de juego, mayor profundidad es mayor nivel
+            int profundidadIA1=6;
+            int profundidadIA2=6;
+
+            char jugador='X'; // IA1 = X, IA2 = O
+
+            while(!a.tableroLleno(a.tablero)){
+
+                if(jugador=='X'){
+                    a.profundidadMaxima=profundidadIA1;
+                    int col=a.mejorJugadaIA();
+                    a.tirar(col,'X');
+
+                    if(a.hayGanador(a.tablero,'X')){
+                        ganaIA1++;
+                        break;
+                    }
+
+                    jugador='O';
+
+                }else{
+                    a.profundidadMaxima=profundidadIA2;
+                    int col=a.mejorJugadaIA();
+                    a.tirar(col, 'O');
+
+                    if(a.hayGanador(a.tablero,'O')){
+                        ganaIA2++;
+                        break;
+                    }
+
+                    jugador='X';
+                }
+            }
+
+            if(!a.hayGanador(a.tablero,'X')&&!a.hayGanador(a.tablero,'O')){
+                empates++;
+            }
+        }
+
+        System.out.println("===== RESULTADOS =====");
+        System.out.println("IA1 (X) gana: " + ganaIA1);
+        System.out.println("IA2 (O) gana: " + ganaIA2);
+        System.out.println("Empates: " + empates);
     }
 }

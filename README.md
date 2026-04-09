@@ -1,131 +1,149 @@
-# Conecta 4 con Inteligencia Artificial (Negamax + Alpha-Beta)
+# Conecta 4 con IA (Negamax + Poda Alfa-Beta)
 
-## Descripción
-
-Este proyecto implementa el juego de **Conecta 4** junto con una **Inteligencia Artificial** capaz de tomar decisiones estratégicas utilizando:
-
-* **Negamax**
-* **Poda Alfa-Beta**
-* Función heurística de evaluación de estados
-
-El objetivo es simular un oponente competitivo capaz de anticipar jugadas y maximizar sus probabilidades de victoria.
+Implementación del juego Conecta 4 en Java con una Inteligencia Artificial basada en el algoritmo **Negamax optimizado con poda alfa-beta**, heurística avanzada y análisis de rendimiento.
 
 ---
 
-## Objetivo del proyecto
+## Características principales
 
-Desarrollar una IA eficiente para un juego de tablero clásico, aplicando algoritmos de búsqueda en árboles de decisión y optimización mediante poda.
+* Juego completo en consola (jugador vs IA)
+* IA basada en **Negamax + poda alfa-beta**
+* Optimización mediante **ordenamiento de movimientos**
+* Heurística avanzada:
 
----
+  * Evaluación por ventanas (líneas de 4)
+  * Priorización del centro del tablero
+  * Bloqueo de amenazas del rival
+* Métricas de rendimiento en tiempo real:
 
-## Algoritmos implementados
-
-### 🔹 Negamax
-
-Variante simplificada de Minimax que aprovecha la simetría del juego:
-
-```id="xk1z7k"
-score = -negamax(hijo)
-```
-
-Permite implementar la lógica de decisión con menos código y mayor claridad.
-
----
-
-### 🔹 Poda Alfa-Beta
-
-Optimización del algoritmo de búsqueda que evita explorar ramas innecesarias del árbol:
-
-* Reduce drásticamente el número de nodos evaluados
-* Permite alcanzar mayor profundidad de búsqueda
+  * Nodos explorados
+  * Profundidad alcanzada
+  * Tiempo de decisión
+* Simulación automática **IA vs IA**
 
 ---
 
-## Funcionamiento de la IA
+## Algoritmo utilizado
 
-Para cada jugada posible:
+La IA implementa **Negamax con poda alfa-beta**, una variante simplificada de Minimax.
 
-1. Genera los estados hijos
-2. Evalúa recursivamente el árbol de juego
-3. Aplica poda alfa-beta para optimizar
-4. Selecciona la jugada con mejor puntuación
-
----
-
-## Heurística de evaluación
-
-La IA utiliza una función heurística para evaluar posiciones no terminales, considerando:
-
-* Posibles líneas de 2, 3 y 4 en raya
-* Control del centro del tablero
-* Bloqueo de jugadas del oponente
+* Reduce el número de nodos evaluados
+* Mejora significativamente el rendimiento
+* Permite explorar mayor profundidad en menos tiempo
 
 ---
 
-## Complejidad
+## Configuración de dificultad
 
-El espacio de búsqueda en Conecta 4 es grande, por lo que:
+La dificultad se controla mediante la profundidad de búsqueda:
 
-* Sin poda → crecimiento exponencial
-* Con alfa-beta → reducción significativa
-
-Esto permite alcanzar profundidades de búsqueda mayores sin comprometer el rendimiento.
+| Nivel   | Profundidad |
+| ------- | ----------- |
+| Fácil   | 3           |
+| Medio   | 5           |
+| Difícil | 8           |
 
 ---
 
-## Ejemplo de ejecución
+## Ejemplo de salida
 
-```id="k9qzqv"
-Jugador vs IA
-
-Turno IA:
-Analizando jugadas...
-
-IA elige columna 3
+```text
+Movimiento IA: columna 3
+Nodos explorados: 8234
+Profundidad alcanzada: 8
+Tiempo: 215.34 ms
 ```
 
 ---
 
-## Tecnologías utilizadas
+## Experimentos realizados
+
+### IA vs IA (misma profundidad)
+
+Configuración:
+
+* IA vs IA
+* Profundidad: 6
+* 20 partidas
+
+Resultados:
+
+```text
+IA1 (X) gana: 14
+IA2 (O) gana: 6
+Empates: 0
+```
+
+---
+
+## Análisis
+
+* Se observa una **ventaja clara del primer jugador (X)**
+* Esto coincide con la teoría: Conecta 4 está resuelto y el primer jugador puede forzar victoria
+* La ausencia de empates indica que:
+
+  * La IA aún no juega de forma perfecta
+  * Existen errores debido a la profundidad limitada y heurística
+
+---
+
+## Optimizaciones implementadas
+
+### 1. Ordenamiento de movimientos
+
+Se priorizan columnas centrales:
+
+```java
+{3,2,4,1,5,0,6}
+```
+
+✔ Mejora la poda alfa-beta
+✔ Reduce significativamente los nodos explorados
+
+---
+
+### 2. Heurística mejorada
+
+Evaluación basada en:
+
+* Número de fichas propias en una ventana
+* Espacios disponibles
+* Presencia de fichas del rival
+
+Ejemplo:
+
+* 3 en línea + 1 espacio → alto valor
+* Bloqueo de rival → penalización
+
+---
+
+## Posibles mejoras futuras
+
+* Implementación de **tablas de transposición (memoización)**
+* Uso de **iterative deepening**
+* Interfaz gráfica (JavaFX)
+* Exportación de estadísticas de partidas
+* Paralelización de la búsqueda
+
+---
+
+## Tecnologías
 
 * Java
-* Estructuras de datos (árboles implícitos)
-* Algoritmos de búsqueda
+* Programación orientada a objetos
+* Algoritmos de búsqueda adversaria
 
 ---
 
-## Aprendizajes
+## Conclusión
 
-* Implementación de algoritmos de IA clásicos
-* Optimización de búsqueda mediante poda
-* Diseño de funciones heurísticas
-* Manejo de árboles de decisión
+Este proyecto demuestra la implementación de técnicas clásicas de inteligencia artificial aplicadas a juegos, combinando:
 
----
+* Optimización algorítmica
+* Diseño de heurísticas
+* Evaluación experimental
 
-## Posibles mejoras
-
-* Ajuste fino de la heurística
-* Uso de tablas de transposición
-* Paralelización del cálculo
-* Interfaz gráfica más avanzada
-* Implementación de dificultad variable
-
----
-
-## Cómo ejecutar
-
-1. Compilar:
-
-```bash id="7k8x0q"
-javac *.java
-```
-
-2. Ejecutar:
-
-```bash id="m92sld"
-java Main
-```
+El resultado es una IA capaz de tomar decisiones eficientes en un entorno competitivo.
 
 ---
 
