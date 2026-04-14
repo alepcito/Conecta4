@@ -119,25 +119,25 @@ public class Conecta4{
     private int puntuacionH(char[][]copia,char jugador){
         int score = 0;
         char rival = (jugador == 'O') ? 'X' : 'O';
-    // HORIZONTAL
+            //horizontal
         for(int fil=0; fil<FIL; fil++){
             for(int col=0; col<COL-3; col++){
                 score += evaluarVentana(copia, fil, col, 0, 1, jugador, rival);
             }
         }
-    // VERTICAL
+            //vertical
         for(int fil=0; fil<FIL-3; fil++){
             for(int col=0; col<COL; col++){
                 score += evaluarVentana(copia, fil, col, 1, 0, jugador, rival);
             }
         }
-    // DIAGONAL izq a der
+            //diagonal izq a der
         for(int fil=0; fil<FIL-3; fil++){
             for(int col=0; col<COL-3; col++){
                 score += evaluarVentana(copia, fil, col, 1, 1, jugador, rival);
             }
         }
-    // DIAGONAL der a izq
+            //diagonal der a izq
         for(int fil=0; fil<FIL-3; fil++){
             for(int col=3; col<COL; col++){
                 score += evaluarVentana(copia, fil, col, 1, -1, jugador, rival);
@@ -163,7 +163,7 @@ public class Conecta4{
         if(mias == 3 && vacias == 1) return 100;
         if(mias == 2 && vacias == 2) return 10;
 
-        if(rival == 3 && vacias == 1) return -80; // 🔥 bloquear rival
+        if(rival == 3 && vacias == 1) return -80; //bloquea al rival
 
         return 0;
     }
@@ -251,7 +251,7 @@ public class Conecta4{
                 copia[fila][col]='O';
                 int valor=-negamax(copia,1,Integer.MIN_VALUE,Integer.MAX_VALUE,-1);
                 copia[fila][col]=' ';
-                if(valor>mejorValor||(valor==mejorValor&&Math.random()<0.3)){ //Aleatoridad para las simulaciones
+                if(valor>mejorValor||(valor==mejorValor&&Math.random()<0.3)){ //aleatoridad para las simulaciones
                     mejorValor=valor;
                     mejorColumna=col;
                 }
